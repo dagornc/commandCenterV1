@@ -1,0 +1,11 @@
+{
+  "error": "Analysis failed",
+  "code": "provider_timeout",
+  "message": "Ghidra did not finish importing and analyzing the target within its 330000 ms startup deadline (REA_GHIDRA_STARTUP_TIMEOUT_MS).",
+  "retryable": true,
+  "remediation": {
+    "action": "Large binaries can need longer: set REA_GHIDRA_STARTUP_TIMEOUT_MS above 330000 in the environment that starts REA, or skip expensive analyzers with REA_GHIDRA_DISABLED_ANALYZERS, then open the target again. An MCP client's own tool-call timeout is separate and may also need raising."
+  },
+  "target_sha256": "276d5b698a6b706154f3af588f6f885b3aebe518f4ecc8f869abf71383b1904c",
+  "provider_version": "12.1.4"
+}

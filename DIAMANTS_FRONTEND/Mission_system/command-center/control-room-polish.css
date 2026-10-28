@@ -1,0 +1,107 @@
+/* Comfortable control sizes, with extra space for the operator console. */
+body.strategy-shell .hud-panel { font-size:calc(14px * var(--text-scale, 1)); }
+body.strategy-shell .hud-panel .button { font-size:calc(13px * var(--text-scale, 1)); min-height:36px; line-height:1.35; }
+body.strategy-shell .hud-panel-header .button { font-size:calc(12px * var(--text-scale, 1)); }
+body.strategy-shell .command-dock button { font-size:calc(13px * var(--text-scale, 1)); min-height:42px; }
+body.strategy-shell button:focus-visible,body.strategy-shell select:focus-visible,body.strategy-shell input:focus-visible { outline:2px solid #9acdff; outline-offset:3px; }
+body.strategy-shell button:not(:disabled):hover { filter:brightness(1.12); }
+body.strategy-shell .control-room { width:min(1180px,calc(100vw - 32px)); max-width:1180px; height:min(900px,calc(100dvh - 32px)); max-height:calc(100dvh - 32px); box-sizing:border-box; padding:0; overflow:hidden; background:#171e25; color:#eef3f7; border:1px solid #526373; border-radius:14px; font-size:calc(15px * var(--text-scale, 1)); line-height:1.5; }
+body.strategy-shell .control-room[open] { display:flex; flex-direction:column; }
+body.strategy-shell .control-room header { flex-shrink:0; padding:18px 24px; background:#202a34; border-color:#3a4b59; }
+body.strategy-shell .control-room h2 { font-size:calc(26px * var(--text-scale, 1)); line-height:1.2; }
+body.strategy-shell .control-room .eyebrow { font-size:calc(12px * var(--text-scale, 1)); color:#b6c8d7; }
+body.strategy-shell .control-search-label { flex-shrink:0; padding:12px 24px; color:#ccd8e3; font-size:calc(14px * var(--text-scale, 1)); }
+body.strategy-shell #control-search { font:inherit; min-height:46px; background:#101820; border-color:#60778b; color:#eef3f7; }
+body.strategy-shell .control-room-layout { flex:1; min-height:0; height:auto; grid-template-columns:245px minmax(0,1fr); overflow:hidden; }
+body.strategy-shell #control-categories { background:#141b22; border-color:#3a4b59; padding:10px; }
+body.strategy-shell #control-categories button { min-height:54px; font-size:calc(14px * var(--text-scale, 1)); font-weight:600; color:#c3d0dc; border:1px solid transparent; margin-bottom:5px; }
+body.strategy-shell #control-categories button[aria-pressed=true] { color:#f0f7ff; background:#273e53; border-color:#87c3ff; }
+body.strategy-shell #control-categories small { display:block; font-size:calc(12px * var(--text-scale, 1)); font-weight:400; line-height:1.4; margin-top:4px; color:#adbecd; white-space:normal; }
+body.strategy-shell .control-scroll { min-height:0; padding:18px 24px 28px; scrollbar-gutter:stable; }
+body.strategy-shell .control-scroll h3 { font-size:calc(22px * var(--text-scale, 1)); color:#f0f5fa; }
+body.strategy-shell .control-scroll p { font-size:calc(14px * var(--text-scale, 1)); color:#bbcad8; }
+body.strategy-shell .control-surface>div { padding:14px; margin:12px 0; border:1px solid #374956; border-radius:9px; background:#1e2832; }
+body.strategy-shell .control-surface label { font-size:calc(14px * var(--text-scale, 1)); font-weight:500; color:#e3ebf3; }
+body.strategy-shell .control-room button,body.strategy-shell .control-room [role=button] { font:600 14px/1.4 var(--font); min-height:44px; border-radius:7px; }
+body.strategy-shell .control-surface button,body.strategy-shell .control-room .workbench-links button { padding:10px 14px; background:#2b3b49; border:1px solid #667e92; color:#eef4fb; white-space:normal; overflow-wrap:anywhere; max-width:100%; }
+body.strategy-shell .control-room button:disabled { opacity:.5; cursor:not-allowed; filter:none; }
+body.strategy-shell .control-room .control-primary { background:#94caff; color:#122131; border-color:#94caff; }
+body.strategy-shell .control-room .control-danger { background:#45252b; color:#ffc4bf; border-color:#bd6e72; }
+body.strategy-shell .control-room input:not([type=checkbox]):not([type=range]),body.strategy-shell .control-room select,body.strategy-shell .control-room textarea { font:400 16px/1.4 var(--font); min-height:44px; background:#111a22; border:1px solid #60778b; border-radius:6px; color:#edf4fb; max-width:100%; box-sizing:border-box; }
+body.strategy-shell .control-surface input[type=checkbox] { display:inline-block; width:20px; height:20px; min-height:20px; vertical-align:middle; accent-color:#94caff; }
+body.strategy-shell .control-surface input[type=range] { min-height:40px; accent-color:#94caff; }
+body.strategy-shell .command-consequence { font-size:calc(13px * var(--text-scale, 1)); color:#b8cbdc; }
+body.strategy-shell #command-results { flex-shrink:0; max-height:25dvh; padding:0 24px 12px; }
+body.strategy-shell #command-results button { background:#253849; border-color:#60778b; color:#edf4fb; }
+body.strategy-shell .control-workshops { border-top:1px solid #526373; margin-top:20px; padding-top:14px; }
+body.strategy-shell .control-workshops summary { cursor:pointer; font-size:calc(15px * var(--text-scale, 1)); font-weight:600; padding:10px 0; min-height:44px; box-sizing:border-box; }
+body.strategy-shell .control-room footer { padding:0; border:0; }
+body.strategy-shell .control-room footer small { font-size:calc(13px * var(--text-scale, 1)); color:#b5c5d4; }
+body.strategy-shell .control-room .workbench-links { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+@media(max-width:700px) {
+ body.strategy-shell .control-room { width:calc(100vw - 12px); height:calc(100dvh - 12px); max-height:calc(100dvh - 12px); border-radius:10px; }
+ body.strategy-shell .control-room header { padding:12px; gap:8px; }
+ body.strategy-shell .control-room h2 { font-size:calc(21px * var(--text-scale, 1)); }
+ body.strategy-shell .control-search-label { padding:10px 12px; }
+ body.strategy-shell .control-room-layout { display:flex; flex-direction:column; }
+ body.strategy-shell #control-categories { display:flex; flex-shrink:0; max-height:72px; overflow-x:auto; border-right:0; border-bottom:1px solid #3a4b59; padding:6px; gap:6px; }
+ body.strategy-shell #control-categories button { flex-shrink:0; width:auto; min-height:44px; margin:0; padding:9px 12px; white-space:nowrap; }
+ body.strategy-shell #control-categories small { display:none; }
+ body.strategy-shell .control-scroll { flex:1; padding:12px; }
+ body.strategy-shell .control-room .workbench-links { grid-template-columns:1fr; }
+ body.strategy-shell #command-results { padding:0 12px 8px; }
+}
+/* Specialized workspaces must escape the central HUD's clipping rectangle. */
+body.strategy-shell.workbench-open .map-panel { inset:0; width:100vw; height:100dvh; z-index:80; overflow:hidden; }
+body.strategy-shell.workbench-open .map-panel>.panel-top,
+body.strategy-shell.workbench-open .map-panel>.map-lenses,
+body.strategy-shell.workbench-open .map-panel>.camera-bookmarks { display:none; }
+body.strategy-shell.workbench-open .map-stage.workbench { position:fixed; inset:0; width:100vw; height:100dvh; flex:none; }
+body.strategy-shell .hud-context-tab[aria-pressed=true] { background:#293b4c; border-color:#8cc5ff; color:#edf5ff; }
+body.strategy-shell .control-room [hidden] { display:none!important; }
+/* Preserve reading space on short landscape screens without shrinking controls. */
+@media(max-height:500px) {
+ body.strategy-shell .control-room { height:calc(100dvh - 12px); max-height:calc(100dvh - 12px); }
+ body.strategy-shell .control-room header { padding:8px 14px; }
+ body.strategy-shell .control-room header .eyebrow { display:none; }
+ body.strategy-shell .control-room h2 { font-size:calc(20px * var(--text-scale, 1)); margin:0; }
+ body.strategy-shell .control-search-label { padding:6px 14px; font-size:0; }
+ body.strategy-shell #control-search { margin:0; min-height:44px; font-size:calc(16px * var(--text-scale, 1)); padding:8px 12px; }
+ body.strategy-shell #control-categories small { display:none; }
+}
+body.strategy-shell .control-room button,body.strategy-shell .control-room input,body.strategy-shell .control-room select { font-size:calc(14px * var(--text-scale,1)); }
+body.strategy-shell .control-room input:not([type=checkbox]),body.strategy-shell .control-room select { font-size:calc(16px * var(--text-scale,1)); }
+.squad-steps { display:flex; gap:6px; list-style:none; padding:0; flex-wrap:wrap; font-size:calc(12px * var(--text-scale,1)); }
+.squad-steps li { padding:6px; border:1px solid #536778; border-radius:5px; }
+.squad-steps [aria-current] { background:#273e53; border-color:#8cc5ff; }
+.squad-creation { display:grid; gap:12px; border:1px solid #536778; border-radius:8px; padding:12px; margin-bottom:16px; }
+.squad-creation label,.squad-creation input { display:block; width:100%; }
+.squad-creation small { display:block; color:var(--muted); }
+#squad-member-count { display:block; color:#a8d4ff; font-variant-numeric:tabular-nums; }
+body.strategy-shell .squad-creation .squad-members { max-height:210px; overflow:auto; }
+#command-shortcuts { border:1px solid #536778; border-radius:8px; padding:12px; margin-bottom:16px; }
+#command-shortcuts summary { cursor:pointer; padding:8px 0; font-weight:600; }
+#favorite-commands,#recent-commands,#shortcut-catalog { display:flex; flex-wrap:wrap; gap:8px; }
+#command-shortcuts .shortcut-action { text-align:left; }
+#command-shortcuts .shortcut-action small { display:block; font-weight:400; font-size:calc(12px * var(--text-scale,1)); color:inherit; }
+#shortcut-catalog [aria-pressed=true] { background:#273e53; border-color:#8cc5ff; }
+body.strategy-shell #command-shortcuts { min-width:0; overflow-wrap:anywhere; }
+body.strategy-shell #command-shortcuts button { max-width:100%; min-width:0; white-space:normal; overflow-wrap:anywhere; }
+body.strategy-shell .control-scroll summary { overflow-wrap:anywhere; }
+body.strategy-shell .control-room header>div { min-width:0; }
+body.strategy-shell #close-control-room { flex-shrink:0; }
+body.strategy-shell #hud-order-scope { min-width:0; overflow-wrap:anywhere; line-height:1.35; }
+body.strategy-shell #hud-bottom .hud-panel-header { flex-wrap:wrap; }
+body.strategy-shell #hud-bottom .hud-panel-header strong { flex:1 1 125px; }
+.tab-scroll { display:flex; min-width:0; min-height:0; flex-shrink:0; align-items:stretch; }
+.tab-scroll>.hud-tablist { flex:1; min-width:0; }
+body.strategy-shell .tab-scroll-button { flex:0 0 30px; width:30px; min-height:40px; padding:0; border:1px solid #536778; border-radius:4px; background:#243747; color:#cfe6ff; font-size:24px; cursor:pointer; }
+body.strategy-shell .tab-scroll-button:disabled { opacity:.35; cursor:default; }
+body.strategy-shell .tab-scroll-button[hidden] { display:none!important; }
+body.strategy-shell .console-tab-scroll { min-height:0; }
+body.strategy-shell .console-tab-scroll>#control-categories { flex:1; min-width:0; }
+@media(max-width:700px) {
+ body.strategy-shell .console-tab-scroll { flex-shrink:0; }
+ body.strategy-shell .console-tab-scroll>#control-categories { flex:1; }
+ body.strategy-shell .control-room .tab-scroll-button { min-width:30px; font-size:24px; }
+}

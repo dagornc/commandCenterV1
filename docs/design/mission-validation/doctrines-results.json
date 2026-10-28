@@ -1,0 +1,82 @@
+[
+  {
+    "doctrine": "exploration",
+    "modes": [
+      "adaptive",
+      "stigmergy",
+      "grid",
+      "boustrophedon",
+      "spiral",
+      "radial",
+      "perimeter"
+    ],
+    "launch": "passed",
+    "movement": "passed",
+    "returnAndLanding": "passed",
+    "errors": []
+  },
+  {
+    "doctrine": "swarm",
+    "modes": [
+      "adaptive",
+      "stigmergy",
+      "grid",
+      "boustrophedon",
+      "spiral",
+      "radial",
+      "perimeter"
+    ],
+    "launch": "passed",
+    "movement": "passed",
+    "returnAndLanding": "passed",
+    "errors": []
+  },
+  {
+    "doctrine": "coverage",
+    "modes": [
+      "adaptive",
+      "stigmergy",
+      "grid",
+      "boustrophedon",
+      "spiral",
+      "radial",
+      "perimeter"
+    ],
+    "launch": "passed",
+    "movement": "passed",
+    "returnAndLanding": "passed",
+    "errors": []
+  },
+  {
+    "doctrine": "formation",
+    "modes": [
+      "adaptive",
+      "stigmergy",
+      "grid",
+      "boustrophedon",
+      "spiral",
+      "radial",
+      "perimeter"
+    ],
+    "launch": "passed",
+    "movement": "passed",
+    "returnAndLanding": "passed",
+    "errors": []
+  },
+  {
+    "doctrine": "search",
+    "modes": [
+      "adaptive",
+      "stigmergy",
+      "grid",
+      "boustrophedon",
+      "spiral",
+      "radial",
+      "perimeter"
+    ],
+    "launch": "passed",
+    "movement": "passed",
+    "returnAndLanding": "passed",
+    "errors": []
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "base": "http://127.0.0.1:5553/",
+  "checks": [
+    "11 real agents",
+    "search and filter",
+    "agent selection",
+    "settings and keyboard",
+    "map layers",
+    "launch/stop cancellation",
+    "live exploration and coverage",
+    "3D follow and recenter",
+    "return-to-home and landing",
+    "JSON export",
+    "390px and 768px layout"
+  ],
+  "pageErrors": [],
+  "requestFailures": [
+    {
+      "url": "http://localhost:11434/api/tags",
+      "error": "net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "url": "http://localhost:11434/api/tags",
+      "error": "net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "url": "http://localhost:11434/api/tags",
+      "error": "net::ERR_CONNECTION_REFUSED"
+    }
+  ],
+  "output": "/private/tmp/diamants-production-qa-final"
+}

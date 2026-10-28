@@ -1,0 +1,233 @@
+/* The original simulator remains independently usable at simulation.html. */
+html.command-embedded body > :not(#canvas_container):not(script):not(style) {
+  display: none !important;
+}
+html.command-embedded #canvas_container {
+  left: 0 !important;
+  top: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  margin: 0 !important;
+}
+html.command-embedded #canvas_container > :not(canvas) {
+  display: none !important;
+}
+html.command-embedded body::before {
+  display: none !important;
+}
+
+/* Specialized tools keep their original live handlers and share one renderer. */
+html.command-workbench {
+  --sidebar-width: 320px;
+  --sidebar-scale: 1;
+}
+html.command-workbench #ros_interface {
+  background: #131c16 !important;
+  border-right: 1px solid #526345 !important;
+  width: min(320px, 85vw) !important;
+  font-family: system-ui, sans-serif !important;
+}
+html.command-workbench #ros_interface .ros_panel {
+  background: #1b261b !important;
+  border: 1px solid #34432d !important;
+  box-shadow: none !important;
+  border-radius: 10px !important;
+  margin: 10px !important;
+  padding: 14px !important;
+}
+html.command-workbench #ros_interface h3 {
+  color: #dce8ce !important;
+  font-size: 14px !important;
+}
+html.command-workbench #ros_interface .btn_ros {
+  min-height: 36px;
+  border: 1px solid #536346 !important;
+  background: #2a3825 !important;
+  color: #e0ecd4 !important;
+  font-size: 12px !important;
+}
+html.command-workbench #ros_interface input,
+html.command-workbench #ros_interface select {
+  min-height: 32px;
+  font-size: 12px !important;
+}
+html.command-workbench #fleet-models-panel,
+html.command-workbench #llm-chat-panel,
+html.command-workbench #quality-control-panel {
+  max-width: calc(100vw - 20px) !important;
+  max-height: calc(100vh - 20px) !important;
+  overflow: auto;
+}
+/* One active docked tool: preserve source DOM, handlers, and live state. */
+html.command-workbench body {
+  background: #101810 !important;
+}
+html.command-workbench #canvas_container {
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+html.command-workbench
+  :is(
+    #ros_interface,
+    #fleet-models-panel,
+    #drone-select-panel,
+    #llm-chat-panel,
+    #swarm-rl-panel,
+    #fractal-hypervision-panel,
+    #optimal-search-ui,
+    #quality-control-panel
+  ):not(.workbench-pane) {
+  display: none !important;
+}
+html.command-workbench
+  :is(
+    #toggle_panel,
+    #mobile-toolbar,
+    #fleet-models-fab,
+    #llm-chat-fab,
+    #sidebar-resize-handle,
+    #minimaps-container
+  ) {
+  display: none !important;
+}
+html.command-workbench
+  :is(
+    #ros_interface,
+    #fleet-models-panel,
+    #drone-select-panel,
+    #llm-chat-panel,
+    #swarm-rl-panel,
+    #fractal-hypervision-panel,
+    #optimal-search-ui,
+    #quality-control-panel
+  ).workbench-pane {
+  position: fixed !important;
+  top: 14px !important;
+  bottom: 14px !important;
+  left: auto !important;
+  right: 14px !important;
+  width: min(470px, calc(100vw - 28px)) !important;
+  min-width: 0 !important;
+  height: calc(100vh - 28px) !important;
+  max-width: calc(100vw - 28px) !important;
+  max-height: calc(100vh - 28px) !important;
+  transform: none !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  overflow: auto !important;
+  background: #151f17 !important;
+  color: #e0e7d6 !important;
+  border: 1px solid #5c6c4e !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 45px #0008 !important;
+  font-family: system-ui, sans-serif !important;
+  padding: 16px !important;
+  z-index: 8000 !important;
+}
+html.command-workbench.workbench-wide
+  :is(
+    #ros_interface,
+    #fleet-models-panel,
+    #drone-select-panel,
+    #llm-chat-panel,
+    #swarm-rl-panel,
+    #fractal-hypervision-panel,
+    #optimal-search-ui,
+    #quality-control-panel
+  ).workbench-pane {
+  width: min(960px, calc(100vw - 28px)) !important;
+}
+html.command-workbench .workbench-pane :is(label, p, span, li, td, div) {
+  font-size: 12px !important;
+  line-height: 1.5;
+}
+html.command-workbench .workbench-pane :is(input, select, textarea, button) {
+  font-family: system-ui, sans-serif !important;
+  font-size: 13px !important;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+html.command-workbench
+  .workbench-pane
+  :is(input:not([type="range"]):not([type="checkbox"]), select, button) {
+  min-height: 40px;
+}
+html.command-workbench .workbench-pane :is(input, select, textarea) {
+  background: #0d1710 !important;
+  color: #e2ecd8 !important;
+  border-color: #61714f !important;
+}
+html.command-workbench .workbench-pane button {
+  border-radius: 6px !important;
+}
+html.command-workbench .workbench-pane :focus-visible {
+  outline: 2px solid #eea16c !important;
+  outline-offset: 3px;
+}
+html.command-workbench .workbench-pane :is(textarea, pre) {
+  overflow: auto;
+}
+html.command-workbench .workbench-pane .llm-resize {
+  display: none;
+}
+html.command-workbench.workbench-scene-only
+  :is(.workbench-pane, #minimap-picker-overlay, #minimap-fullscreen-viewer) {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+html.command-workbench #minimap-picker-overlay {
+  background: #070e09b8 !important;
+}
+html.command-workbench #minimap-picker {
+  background: #151f17 !important;
+  color: #e0e7d6 !important;
+  max-height: 90vh;
+  overflow: auto;
+}
+html.command-workbench .minimap-pick-item {
+  min-height: 44px;
+  padding: 12px !important;
+  font-size: 14px !important;
+}
+@media (max-width: 700px) {
+  html.command-workbench
+    :is(
+      #ros_interface,
+      #fleet-models-panel,
+      #drone-select-panel,
+      #llm-chat-panel,
+      #swarm-rl-panel,
+      #fractal-hypervision-panel,
+      #optimal-search-ui,
+      #quality-control-panel
+    ).workbench-pane {
+    top: 8px !important;
+    right: 8px !important;
+    bottom: 8px !important;
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    height: calc(100vh - 16px) !important;
+    max-height: calc(100vh - 16px) !important;
+    padding: 12px !important;
+  }
+  html.command-workbench .workbench-pane :is(button, input, select) {
+    min-height: 44px;
+  }
+}
+html.command-workbench
+  :is(#follow-drone-fab, #follow-drone-hud, #llm-decision-toasts) {
+  display: none !important;
+}
+html.command-workbench
+  #fractal-hypervision-panel.workbench-pane
+  :is(#fractal-detail, span[style*="#64748b"], div[style*="#64748b"]) {
+  color: #b5c5aa !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.command-workbench * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}

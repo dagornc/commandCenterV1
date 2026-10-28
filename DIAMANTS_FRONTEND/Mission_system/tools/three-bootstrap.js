@@ -27,7 +27,7 @@ async function bootstrapTHREE() {
         _log('📦 Chargement THREE.js depuis unpkg...');
         
         // Import dynamique de THREE.js
-        const THREE = await import('https://unpkg.com/three@0.167.1/build/three.module.js');
+        const THREE = await import('three');
         _log('✅ THREE.js loaded:', THREE);
         
         // Exposition globale forcée
@@ -84,7 +84,7 @@ async function bootstrapTHREE() {
         // Import des addons critiques
         _log('📦 Chargement ColladaLoader...');
         try {
-            const ColladaLoaderModule = await import('https://unpkg.com/three@0.167.1/examples/jsm/loaders/ColladaLoader.js');
+            const ColladaLoaderModule = await import('three/addons/loaders/ColladaLoader.js');
             window.ColladaLoader = ColladaLoaderModule.ColladaLoader;
             _log('✅ ColladaLoader loaded and exposed');
         } catch (colladaError) {
@@ -103,7 +103,7 @@ async function bootstrapTHREE() {
         // Import OrbitControls
         _log('📦 Chargement OrbitControls...');
         try {
-            const OrbitControlsModule = await import('https://unpkg.com/three@0.167.1/examples/jsm/controls/OrbitControls.js');
+            const OrbitControlsModule = await import('three/addons/controls/OrbitControls.js');
             window.OrbitControls = OrbitControlsModule.OrbitControls;
             _log('✅ OrbitControls loaded and exposed');
         } catch (orbitError) {

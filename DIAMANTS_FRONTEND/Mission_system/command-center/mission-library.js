@@ -1,0 +1,21 @@
+export function validTemplate(value) {
+ if(!value||!['plan','orders'].includes(value.kind)||typeof value.name!=='string'||!value.name.trim()||value.name.length>60||!Array.isArray(value.items)||!value.items.length||value.items.length>(value.kind==='plan'?24:48))return false;
+ return value.items.every((o,i)=>o&&((value.kind==='plan'||o.type==='move')&&Number.isFinite(o.x)&&Number.isFinite(o.z)||value.kind==='orders'&&(o.type==='wait'&&Number.isFinite(o.seconds)&&o.seconds>=1&&o.seconds<=600||o.type==='return'&&i===value.items.length-1)));
+}
+export function transformTemplate(template,scale,dx,dz,bounds) {
+ if(!validTemplate(template)||![scale,dx,dz].every(Number.isFinite)||scale<0.1||scale>10)throw new Error('Modèle ou transformation invalide (échelle 0,1 à 10).');
+ const items=template.items.map(o=>template.kind==='plan'||o.type==='move'?{...(template.kind==='orders'?{type:'move'}:{}),x:o.x*scale+dx,z:o.z*scale+dz}:o.type==='wait'?{type:'wait',seconds:o.seconds}:{type:'return'});
+ if(items.some(p=>p.x!==undefined&&(Math.abs(p.x)>bounds.x||Math.abs(p.z)>bounds.z)))throw new Error('Objectifs hors zone : ajustez la transformation ou les dimensions.');
+ return items;
+}
+export function initMissionLibrary({container,storage,getPlan,getOrders,applyPlan,applyOrders,getBounds,notify}) {
+ let templates=[];try{const saved=JSON.parse(storage?.getItem('diamants.command.templates')||'[]');if(Array.isArray(saved))templates=saved.filter(validTemplate).slice(0,12);}catch{}
+ const box=document.createElement('details');box.id='mission-library';box.className='panel';box.innerHTML='<summary>Bibliothèque de missions</summary><p>Modèles locaux sans affectation de drones. Charger prépare les ordres, sans lancement.</p><label>Nom <input id="template-name" maxlength="60" placeholder="Balayage nord"></label><div class="plan-actions"><button class="button" id="template-save-plan">Enregistrer le plan</button><button class="button" id="template-save-orders">Enregistrer la file d’escadron</button></div><label>Modèle <select id="template-select"></select></label><div class="plan-actions"><label>Échelle <input id="template-scale" type="number" min="0.1" max="10" step="0.1" value="1"></label><label>Décalage X (m)<input id="template-x" type="number" value="0"></label><label>Décalage Z (m)<input id="template-z" type="number" value="0"></label></div><button class="button" id="template-load">Charger en préparation</button><button class="button" id="template-delete">Supprimer le modèle</button><p id="template-status" role="status"></p>';
+ container.append(box);const $=id=>box.querySelector('#'+id),status=$('template-status');
+ const persist=()=>{try{storage.setItem('diamants.command.templates',JSON.stringify(templates));status.textContent='Bibliothèque enregistrée sur cet appareil.';}catch{status.textContent='Stockage indisponible : modèles conservés dans cette session.';}};
+ function render(){$('template-select').replaceChildren(...templates.map((t,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${t.name} · ${t.kind==='plan'?'Plan':'File'} · ${t.items.length}`;return o;}));$('template-load').disabled=$('template-delete').disabled=!templates.length;}
+ function save(kind){try{if(templates.length>=12)throw new Error('Douze modèles maximum.');const t={kind,name:$('template-name').value.trim()||`Modèle ${templates.length+1}`,items:kind==='plan'?getPlan():getOrders()};if(!validTemplate(t))throw new Error('Préparez un plan ou une file valide avant de l’enregistrer.');templates.push(JSON.parse(JSON.stringify(t)));persist();render();}catch(e){status.textContent=e.message;}}
+ $('template-save-plan').onclick=()=>save('plan');$('template-save-orders').onclick=()=>save('orders');
+ $('template-load').onclick=()=>{try{const t=templates[Number($('template-select').value)];const items=transformTemplate(t,Number($('template-scale').value),Number($('template-x').value),Number($('template-z').value),getBounds());t.kind==='plan'?applyPlan(items):applyOrders(items);status.textContent=`${t.name} chargé en préparation. Aucun ordre envoyé.`;notify(status.textContent);}catch(e){status.textContent=e.message;}};
+ $('template-delete').onclick=()=>{templates.splice(Number($('template-select').value),1);persist();render();};render();
+}

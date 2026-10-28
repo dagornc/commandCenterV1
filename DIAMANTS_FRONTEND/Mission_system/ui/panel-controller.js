@@ -881,7 +881,7 @@ export class PanelController {
         }
         
         // WebSocket command
-        this.sendWebSocketCommand('mission_command', { action: 'start', mission_type: 'exploration' });
+        this.sendWebSocketCommand('mission_command', { action: 'start', mission_type: this.doctrineManager?.currentDoctrine?.id || 'exploration' });
         
         this.showFeedback('Mission launched', 'success');
         return true;
@@ -924,6 +924,7 @@ export class PanelController {
     }
     
     handleTakeoff() {
+        window.diamantsSystem?.integratedController?.cancelPendingMissionStart?.();
         console.log('[BTN-TEST] handleTakeoff() called');
         log('🛫 TAKEOFF ALL');
         
@@ -933,6 +934,9 @@ export class PanelController {
             return false;
         }
         
+        window.dispatchEvent(new CustomEvent('diamants:mission-status', {
+            detail: { phase: 'TAKEOFF', status: 'Fleet takeoff requested' }
+        }));
         const controller = system.integratedController;
         const engine = controller.autonomousFlightEngine;
         const altitude = this.doctrineManager?.zoneParams?.altitude || 3.0;
@@ -959,6 +963,7 @@ export class PanelController {
     }
     
     handleLand() {
+        window.diamantsSystem?.integratedController?.cancelPendingMissionStart?.();
         console.log('[BTN-TEST] handleLand() called');
         log('🛬 LAND ALL');
         
@@ -994,6 +999,7 @@ export class PanelController {
     }
 
     handleReturnToHome() {
+        window.diamantsSystem?.integratedController?.cancelPendingMissionStart?.();
         console.log('[BTN-TEST] handleReturnToHome() called');
         log('🏠 RETURN TO HOME');
 
@@ -1006,6 +1012,7 @@ export class PanelController {
         const controller = system.integratedController;
         const engine = controller.autonomousFlightEngine;
         controller.isRunning = true;
+        controller.missionStarted = false;
 
         let count = 0;
         (controller.drones || []).forEach((drone, idx) => {
@@ -1023,6 +1030,7 @@ export class PanelController {
     }
     
     handleReset() {
+        window.diamantsSystem?.integratedController?.cancelPendingMissionStart?.();
         console.log('[BTN-TEST] handleReset() called');
         log('🔄 RESET SWARM');
         

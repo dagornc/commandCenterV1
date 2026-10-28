@@ -1,0 +1,44 @@
+[
+  {
+    "useCase": "Préparer et lancer un balayage",
+    "status": "passed",
+    "seconds": 10,
+    "output": "PASS: plan targets, undo, survey, engine execution, edit lock, inspector, mobile/tablet, no page errors\n"
+  },
+  {
+    "useCase": "Créer et gérer un escadron",
+    "status": "passed",
+    "seconds": 4,
+    "output": "PASS empty selection rejected, named and default groups, member recall, deletion consistency, mobile creation, no takeoff or JS errors\n"
+  },
+  {
+    "useCase": "Préparer une file sur mobile et annuler",
+    "status": "passed",
+    "seconds": 4,
+    "output": "PASS mobile team → queue → scoped review → cancel → favorite → review → edit, no flight/errors\n"
+  },
+  {
+    "useCase": "Retrouver un outil au clavier",
+    "status": "passed",
+    "seconds": 4,
+    "output": "PASS: navigation, accents, keyboard, empty results, focus, modal isolation, workshops, typing, same engine, no launch, 1440/768/390px, no JS errors\n"
+  },
+  {
+    "useCase": "Agrandir le texte et réutiliser un favori",
+    "status": "passed",
+    "seconds": 8,
+    "output": "PASS independent persistent text/density, guided creation and errors, favorites/recent persistence, current scope, disabled commands, one confirmation/no takeoff, 3 scales x 4 sizes\n"
+  },
+  {
+    "useCase": "Replier sans perdre le contexte",
+    "status": "passed",
+    "seconds": 4,
+    "output": "PASS semantic tabs, values preserved, preview/pin/collapse geometry, Escape, keyboard/pointer resize, search reveal, same iframe, mobile, no launch/errors\n"
+  },
+  {
+    "useCase": "Console sur petit écran et au clavier",
+    "status": "passed",
+    "seconds": 4,
+    "output": "PASS rail state, context state, empty search, keyboard categories, 5 screen sizes including small/landscape, modal focus restoration, no JS errors\n"
+  }
+]

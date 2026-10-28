@@ -1738,6 +1738,8 @@ class DiamantsMissionSystem {
     }
 
     onKeyDown(event) {
+        // Text entry and modal controls own their keyboard; never fly the camera while typing.
+        if (event.target?.closest?.('input, textarea, select, [contenteditable="true"], dialog[open]') || event.defaultPrevented) return;
         switch (event.code) {
             case 'KeyF':
                 // Plein écran
@@ -2514,6 +2516,7 @@ Souris: Navigation 3D
     }
 
     dispose() {
+        this.integratedController?.cancelPendingMissionStart?.();
         // Nettoyage complet
         if (this.environment) {
             this.environment.dispose();

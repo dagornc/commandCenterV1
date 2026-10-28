@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict'),p=require('puppeteer');
+(async()=>{const b=await p.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',args:['--enable-webgl','--ignore-gpu-blocklist']});try{
+ const page=await b.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.setViewport({width:1440,height:1000});await page.goto('http://127.0.0.1:5550/');await page.waitForFunction(()=>!document.querySelector('#launch-button').disabled,{timeout:60000});await page.click('#hud-tab-missions');await page.click('#open-control-room');
+ const counts=await page.evaluate(()=>({source:document.querySelector('#simulation-frame').contentDocument.querySelectorAll('#ros_interface button,#ros_interface input,#ros_interface select').length,copy:document.querySelectorAll('#control-content button,#control-content input,#control-content select').length}));assert.equal(counts.source,counts.copy);
+ await page.select('[data-source-id="mission_type"]','coverage');assert.equal(await page.evaluate(()=>document.querySelector('#simulation-frame').contentDocument.querySelector('#mission_type').value),'coverage');
+ await page.type('#control-search','altitude');await page.keyboard.press('ArrowDown');await page.keyboard.press('Enter');assert.equal(await page.evaluate(()=>document.activeElement.dataset.sourceId),'altitude_slider');
+ for(const width of [1440,768,390]){await page.setViewport({width,height:width===390?844:900});
+ for(const category of await page.$$eval('#control-categories button',es=>es.map(e=>e.dataset.category))){await page.click(`[data-category="${category}"]`);assert(await page.$eval('#control-room',e=>e.scrollWidth<=e.clientWidth),'dialog no overflow');assert(await page.$eval('.control-scroll',e=>e.clientHeight>200),'usable content height');assert(await page.$eval('#close-control-room',e=>{const r=e.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;}));}
+ await page.click('[data-category="mission"]');await page.screenshot({path:`/private/tmp/console-polish-${width}.png`});assert(await page.$eval('[data-source-id="mission_type"]',e=>parseFloat(getComputedStyle(e).fontSize)>=16));
+ }
+ await page.click('#control-workshops summary');await page.click('#control-workshops [data-workbench="fleet"]');assert(await page.$eval('#control-room',e=>!e.open));assert(await page.$eval('#map-stage',e=>e.classList.contains('workbench')));await page.click('#close-workbench');
+ assert.deepEqual(errors,[]);console.log('PASS all source controls retained, live binding, search keyboard, 8 categories at 1440/768/390, 16px inputs, fixed close button, workshops, no JS errors');
+}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

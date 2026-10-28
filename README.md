@@ -16,6 +16,39 @@ rules. See [Bring your own model](#bring-your-own-model-neurosymbolic).
 >
 > <sub>The live demo lets you try DIAMANTS in your browser — it is not up to date either compared with the demonstration films.</sub>
 
+### Command Center (local interface)
+
+The default page now opens a command center with a live tactical map, selectable
+fleet, agent telemetry, mission controls, 3D follow view, and an exportable event
+journal. It reads the actual local simulator; unavailable measurements remain
+explicitly unavailable. The original advanced interface is preserved at
+`simulation.html`.
+
+Run the frontend using the [getting started](#getting-started) instructions.
+See [Command Center usage and validation](docs/design/command-center.md) and the
+[REA game-reference investigation](docs/design/rea-game-reference.md).
+
+### Démarrer frontend et backend local
+
+Depuis la racine du projet :
+
+```bash
+./start.sh
+```
+
+Le script lance Vite sur http://127.0.0.1:5550 et le backend de modèles
+Ollama sur http://127.0.0.1:11434. Il réutilise Ollama si celui-ci répond déjà.
+Prérequis : Node.js 20+, dépendances frontend (`npm ci` dans
+`DIAMANTS_FRONTEND/Mission_system`) et Ollama installé. Aucun modèle n’est
+téléchargé automatiquement ; les modèles doivent être installés et configurés
+pour les fonctions IA. Le moteur de simulation reste dans le navigateur.
+
+`Ctrl+C` arrête les processus créés par le script, sans arrêter un backend
+préexistant. Si le port frontend est occupé : `PORT=5551 ./start.sh`.
+Pour le simulateur seul : `./start.sh --frontend-only`.
+`./start.sh --help` affiche les options. Le lanceur fonctionne depuis tout
+répertoire et accepte les chemins contenant des espaces.
+
 ### Why wildfire
 
 A forest fire is cheap to stop and ruinous to chase. In its first minutes one

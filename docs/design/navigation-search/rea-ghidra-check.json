@@ -1,0 +1,63 @@
+{
+  "healthy": true,
+  "scope_checks": [
+    {
+      "name": "node",
+      "ok": true,
+      "classification": "healthy",
+      "detail": "24.22.1",
+      "details": {
+        "runtime": "node",
+        "version": "24.22.1"
+      }
+    },
+    {
+      "name": "ghidra",
+      "ok": true,
+      "classification": "healthy",
+      "detail": "/private/tmp/rea-ux-tools/ghidra_12.1.4_PUBLIC"
+    },
+    {
+      "name": "ghidra-platform",
+      "ok": true,
+      "classification": "healthy",
+      "detail": "darwin"
+    },
+    {
+      "name": "ghidra-architecture",
+      "ok": true,
+      "classification": "healthy",
+      "detail": "arm64"
+    },
+    {
+      "name": "ghidra-installation",
+      "ok": true,
+      "classification": "healthy",
+      "detail": "/private/tmp/rea-ux-tools/ghidra_12.1.4_PUBLIC/Ghidra/application.properties"
+    },
+    {
+      "name": "ghidra-version",
+      "ok": true,
+      "classification": "healthy",
+      "detail": "12.1.4"
+    },
+    {
+      "name": "ghidra-headless",
+      "ok": true,
+      "classification": "healthy",
+      "detail": "/private/tmp/rea-ux-tools/ghidra_12.1.4_PUBLIC/support/analyzeHeadless"
+    },
+    {
+      "name": "ghidra-native_decompiler",
+      "ok": true,
+      "classification": "healthy",
+      "detail": "/private/tmp/rea-ux-tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/Decompiler/os/mac_arm_64/decompile reports mach-o arm64, which matches darwin/arm64"
+    },
+    {
+      "name": "ghidra-java",
+      "ok": true,
+      "classification": "healthy",
+      "detail": "21.0.13; 64-bit; JDK; /private/tmp/rea-ux-tools/jdk-21.0.13+9/Contents/Home; accepted a 64-bit full JDK 21 or newer"
+    }
+  ]
+}

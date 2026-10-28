@@ -1,0 +1,81 @@
+/* Four permanent edges reserve a central viewport; drawers scroll independently. */
+body.strategy-shell { --hud-left:46px; --hud-right:42px; --hud-top:52px; --hud-bottom:88px; overflow:hidden; height:100dvh; }
+.strategy-shell[data-hud-left=true] { --hud-left:330px; }
+.strategy-shell[data-hud-right=true] { --hud-right:366px; }
+.strategy-shell[data-hud-top=true] { --hud-top:156px; }
+.strategy-shell[data-hud-bottom=true] { --hud-bottom:330px; }
+.strategy-shell .app { margin:0; }
+.strategy-shell #workspace { padding:0; }
+.strategy-shell .topbar { position:fixed; inset:0 0 auto 0; height:52px; padding:0 170px 0 130px; z-index:35; background:var(--panel-deep); }
+.strategy-shell .rail { display:none; }
+.strategy-shell .map-panel { position:fixed; top:var(--hud-top); bottom:var(--hud-bottom); left:var(--hud-left); right:var(--hud-right); width:auto; height:auto; min-width:0; margin:0; border-radius:0; overflow:hidden; }
+.strategy-shell .map-stage { min-height:0; height:auto; flex:1 1 0; }
+.strategy-shell .map-panel > .panel-top { min-height:44px; padding:6px 12px; }
+.strategy-shell .map-lenses { padding:5px 10px; }
+.strategy-shell .map-footer { padding:4px 10px; }
+.strategy-shell .camera-bookmarks { max-height:25%; overflow:auto; flex-shrink:0; margin:0; }
+.strategy-shell .command-dock { position:fixed; bottom:0; left:0; right:0; width:auto; margin:0; transform:none; min-height:88px; height:88px; padding:8px 155px 8px 12px; z-index:40; border-radius:0; }
+.hud-panel { position:fixed; background:var(--panel-deep); overflow:auto; overscroll-behavior:contain; padding:10px; z-index:30; border:1px solid var(--line); }
+.hud-panel[hidden] { display:none!important; }
+.hud-left { top:52px; bottom:88px; left:46px; width:284px; }
+.hud-right { top:52px; bottom:88px; right:42px; width:324px; }
+.hud-top { left:46px; right:42px; top:52px; height:104px; z-index:32; }
+.hud-bottom { bottom:88px; left:46px; right:42px; height:242px; z-index:32; }
+.hud-toggle { position:fixed; z-index:45; background:var(--panel); color:var(--text); border:1px solid var(--line); font:600 12px var(--font); }
+.hud-toggle[aria-expanded=true] { color:var(--green); }
+.hud-toggle-left { top:52px; bottom:88px; left:0; width:46px; writing-mode:vertical-rl; }
+.hud-toggle-right { top:52px; bottom:88px; right:0; width:42px; writing-mode:vertical-rl; }
+.hud-toggle-top { top:6px; right:8px; height:40px; width:120px; }
+.hud-toggle-bottom { bottom:10px; right:8px; height:60px; width:135px; }
+.strategy-shell .hud-panel .panel, .strategy-shell .hud-panel .tactical-toolbar, .strategy-shell .hud-panel .workspace-switch { margin:0 0 10px; width:100%; }
+.strategy-shell #context-tools { display:block; width:100%; min-width:0; }
+.strategy-shell #context-tools > nav { position:sticky; top:-10px; z-index:2; background:var(--panel-deep); padding:8px 0; }
+.strategy-shell .hud-panel .fleet-table-wrap { overflow:auto; }
+.strategy-shell .hud-top .metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin:0; }
+.strategy-shell .hud-top .metric { min-height:75px; padding:8px; }
+.strategy-shell .hud-top .metric-main { margin:3px 0; }
+.strategy-shell .hud-top .metric-main strong { font-size:22px; }
+.strategy-shell .hud-top .mini-bars,.strategy-shell .hud-top .metric-orbit { display:none; }
+@media(max-width:1099px) {
+ .strategy-shell[data-hud-left=true] { --hud-left:46px; }
+ .strategy-shell[data-hud-right=true] { --hud-right:42px; }
+ .strategy-shell .topbar { padding-left:12px; padding-right:140px; }
+ .strategy-shell .breadcrumb,.strategy-shell .topbar-right { display:none; }
+ .hud-left,.hud-right { width:min(324px,calc(100vw - 88px)); }
+ .strategy-shell .command-dock { padding:5px 100px 5px 6px; }
+ .hud-toggle-bottom { width:90px; font-size:11px; }
+ .strategy-shell .dock-state { display:none; }
+ .strategy-shell #dock-actions { display:flex; flex-wrap:wrap; gap:3px; }
+ .strategy-shell #dock-actions .button { flex:1; min-height:30px; padding:4px 6px; font-size:11px; }
+ .strategy-shell .map-panel .panel-top .panel-title .eyebrow { display:none; }
+ .strategy-shell .map-panel .panel-top { flex-wrap:wrap; }
+ .strategy-shell .hud-top .metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .strategy-shell[data-hud-top=true] { --hud-top:240px; }
+ .hud-top { height:188px; }
+ .strategy-shell .map-lenses span { display:none; }
+ .strategy-shell .map-lenses { font-size:11px; gap:4px; }
+ .strategy-shell .map-lenses select { min-height:30px; }
+}
+@media(max-height:600px) { .strategy-shell[data-hud-top=true] { --hud-top:52px; } .strategy-shell[data-hud-bottom=true] { --hud-bottom:88px; } .hud-bottom { height: min(242px,calc(100dvh - 150px)); } }
+.strategy-shell .hud-left .rail { display:flex; position:static; width:100%; height:auto; flex-direction:row; padding:6px; gap:5px; border:0; }
+.strategy-shell .hud-left .rail .brand,.strategy-shell .hud-left .rail-line,.strategy-shell .hud-left .rail .avatar { display:none; }
+.strategy-shell .hud-left .rail-bottom { margin:0; }
+.strategy-shell .hud-left .rail .nav-button { width:42px; height:42px; }
+.strategy-shell .hud-left .rail .nav-button span { display:none; }
+@media(max-width:1099px) { .strategy-shell .topbar-right { display:flex; } .strategy-shell .topbar-right > :not(#settings-button) { display:none; } }
+.strategy-shell .hud-left .tactical-shortcuts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; }
+.strategy-shell .hud-left .tactical-shortcut { min-width:0; min-height:64px; }
+.strategy-shell .hud-left .tactical-toolbar-heading { display:flex; flex-wrap:wrap; gap:8px; }
+.strategy-shell .hud-left .workspace-switch > div { flex-shrink:0; }
+.strategy-shell .hud-left .command-access { display:block; }
+.strategy-shell .hud-left .command-access .button { width:100%; margin-top:8px; }
+.strategy-shell .hud-left .workspace-switch { display:block; }
+.strategy-shell .hud-left .workspace-switch > div { display:flex; gap:6px; }
+.strategy-shell .hud-left .workspace-switch p { margin:10px 0 0; }
+.strategy-shell .hud-left .tactical-shortcut { overflow-wrap:normal; word-break:normal; }
+.strategy-shell .hud-left { width:var(--hud-left-width,284px); }
+.strategy-shell .hud-right { width:var(--hud-right-width,324px); }
+.hud-layout-settings { margin-bottom:12px; padding:8px; border:1px solid var(--line); }
+.hud-layout-settings label { display:block; margin:8px 0; }
+.hud-layout-settings input[type=range] { width:100%; }
+@media(max-width:1099px) { .strategy-shell .hud-left,.strategy-shell .hud-right { width:min(324px,calc(100vw - 88px)); } }

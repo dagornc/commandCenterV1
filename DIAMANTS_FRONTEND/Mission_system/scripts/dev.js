@@ -52,7 +52,8 @@ async function startDevServer() {
          * would then pick a free one silently and the address printed below
          * would be wrong. `PORT=5551 npm run dev` settles it. */
         port: Number(process.env.PORT) || 5550,
-        host: 'localhost',
+        host: process.env.HOST || '127.0.0.1',
+        strictPort: process.env.STRICT_PORT === '1',
         open: false,
         cors: true,
         watch: {

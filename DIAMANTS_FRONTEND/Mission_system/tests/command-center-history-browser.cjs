@@ -1,0 +1,24 @@
+const assert=require('node:assert/strict'),puppeteer=require('puppeteer');
+(async()=>{const browser=await puppeteer.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',args:['--enable-webgl','--ignore-gpu-blocklist']});try{
+ const page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.setViewport({width:1440,height:1000});
+ await page.goto(process.env.COMMAND_CENTER_URL||'http://127.0.0.1:5552/');
+ await page.evaluate(()=>localStorage.setItem('diamants.command.plan',JSON.stringify(Array.from({length:8},(_,i)=>({x:20+i,z:20})))));
+ await page.reload();await page.waitForFunction(()=>!document.querySelector('#launch-button').disabled,{timeout:60000});
+ const read=()=>page.$$eval('#plan-targets li',els=>els.map(e=>e.textContent));const original=await read();assert.equal(original.length,8);
+ assert(await page.$eval('#plan-undo',e=>e.disabled));await page.$eval('#plan-clear',e=>e.click());assert.equal((await read()).length,0);
+ await page.$eval('#plan-undo',e=>e.click());assert.deepEqual(await read(),original);
+ await page.$eval('#plan-redo',e=>e.click());assert.equal((await read()).length,0);
+ await page.select('#zone-preset','120');
+ await page.$eval('#zone-width',e=>e.value=10);await page.$eval('#zone-depth',e=>e.value=10);await page.$eval('#zone-apply',e=>e.click());
+ await page.$eval('#plan-undo',e=>e.click());assert.equal((await read()).length,0);assert.match(await page.$eval('#toast',e=>e.textContent),/Restauration impossible/);
+ await page.select('#zone-preset','120');await page.$eval('#plan-undo',e=>e.click());assert.deepEqual(await read(),original);
+ await page.focus('#zone-width');await page.keyboard.down('Control');await page.keyboard.press('z');await page.keyboard.up('Control');assert.deepEqual(await read(),original);
+ await page.focus('#plan-point');await page.keyboard.down('Control');await page.keyboard.down('Shift');await page.keyboard.press('z');await page.keyboard.up('Shift');await page.keyboard.up('Control');assert.equal((await read()).length,0);
+ await page.$eval('#plan-undo',e=>e.click());
+ await page.$eval('#launch-button',e=>e.click());await page.waitForSelector('#order-review[open]');await page.click('#order-review-confirm');await page.waitForFunction(()=>document.querySelector('#plan-undo').disabled);
+ const flyingPlan=await read();await page.$eval('#plan-undo',e=>e.click());assert.deepEqual(await read(),flyingPlan);
+ await page.reload();await page.waitForFunction(()=>!document.querySelector('#launch-button').disabled,{timeout:60000});assert.deepEqual(await read(),original);assert(await page.$eval('#plan-undo',e=>e.disabled));assert.equal(await page.$eval('#metric-airborne',e=>e.textContent),'00');
+ await page.setViewport({width:390,height:1000});await page.$eval('#plan-clear',e=>e.click());await page.$eval('#plan-undo',e=>e.click());assert.deepEqual(await read(),original);assert(await page.evaluate(()=>document.body.scrollWidth<=innerWidth));
+ await page.screenshot({path:'/private/tmp/diamants-history-mobile.png',fullPage:true});assert.deepEqual(errors,[]);
+ console.log('PASS: 8-point clear/undo/redo, bounds validation keeps history, input guard, keyboard redo, flight lock, reload persistence without launch/history, mobile');
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

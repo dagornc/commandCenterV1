@@ -1728,7 +1728,13 @@ export class IntegratedDiamantsController {
     /**
      * Démarrage MANUEL des missions - appelée depuis le control panel
      */
+    cancelPendingMissionStart() {
+        clearTimeout(this._missionStartTimer);
+        this._missionStartTimer = null;
+    }
+
     async startMissionManual() {
+        this.cancelPendingMissionStart();
         log('🎯 Démarrage MANUEL de la mission depuis le control panel...');
         
         // Réactiver le contrôleur si précédemment stoppé
@@ -1751,8 +1757,9 @@ export class IntegratedDiamantsController {
                 });
                 // Wait for drones to reach cruise altitude before exploring
                 // X500 needs ~4s to climb 10m at 3m/s, Crazyflie ~2s for 3m
-                setTimeout(() => {
-                    this.autonomousFlightEngine.startExploration();
+                this._missionStartTimer = setTimeout(() => {
+                    this._missionStartTimer = null;
+                    if (this.missionStarted) this.autonomousFlightEngine.startExploration();
                 }, 4000);
             } else {
                 // Drones déjà en l'air (HOVER/TAKEOFF) → lancer l'exploration
@@ -1808,6 +1815,7 @@ export class IntegratedDiamantsController {
     }
 
     emergencyStop() {
+        this.cancelPendingMissionStart();
         log('🚨 ARRÊT D\'URGENCE');
 
         // Keep isRunning = true so the physics loop continues to animate the landing
